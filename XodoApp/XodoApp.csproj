@@ -15,4 +15,12 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\XodoApp.Core.Application\XodoApp.Core.Application.csproj" />
+    <ProjectReference Include="..\XodoApp.Core.Domain\XodoApp.Core.Domain.csproj" />
+    <ProjectReference Include="..\XodoApp.Infrastructure.Identity\XodoApp.Infrastructure.Identity.csproj" />
+    <ProjectReference Include="..\XodoApp.Infrastructure.Persistence\XodoApp.Infrastructure.Persistence.csproj" />
+    <ProjectReference Include="..\XodoApp.Infrastructure.Shared\XodoApp.Infrastructure.Shared.csproj" />
+  </ItemGroup>
+
 </Project>
