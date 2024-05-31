@@ -1,0 +1,72 @@
+﻿@using XodoApp.Core.Application.ViewModels.Users
+@model LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - XodoApp</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/css/styleLogin.css" asp-append-version="true" />
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        #app {
+            max-width: 400px;
+            margin: auto;
+            padding: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            margin-top: 50px;
+            border-radius: 5px;
+        }
+
+        .title {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <form method="post" asp-controller="User" asp-action="Index">
+            <h1 class="title">Login</h1>
+
+            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+            @if (Model.HasError)
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <p>@Model.Error</p>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                <input v-model="email" type="email" asp-for="Email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="E-mail">
+                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Password:</label>
+                <input v-model="senha" asp-for="Password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Senha">
+            </div>
+
+            <div class="d-grid gap-2">
+                <a asp-controller="User" asp-action="Register" class="btn btn-outline-success mt-3">Registrarse</a>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

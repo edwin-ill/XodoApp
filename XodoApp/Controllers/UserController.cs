@@ -76,11 +76,8 @@ namespace XodoApp.Controllers
                 vm.HasError = response.HasError;
                 vm.Error = response.Error;
                 return View(vm);
-            }
-           
-              
-
-           
+            }         
+                         
             return RedirectToRoute(new { controller = "User", action = "Index" });
         }
 

@@ -5,7 +5,7 @@ using XodoApp.Core.Application.Interfaces.Services;
 using XodoApp.Core.Application.ViewModels.Users;
 
 namespace XodoApp.Core.Application.Services
-{//TO DO, agregar desarrolladores a la lista, mismo mensaje en el homecontroller
+{
     public class UserService : IUserService
     {
         private readonly IAccountService _accountService;
@@ -58,10 +58,11 @@ namespace XodoApp.Core.Application.Services
             ResetPasswordRequest resetRequest = _mapper.Map<ResetPasswordRequest>(vm);
             return await _accountService.ResetPasswordAsync(resetRequest);
         }
-       
+
+        
         public async Task Delete(UserDto userDto)
         {
-            await _accountService.Delete(userDto.Id);         
+            await _accountService.Delete(userDto.Id);          
 
         }
     }

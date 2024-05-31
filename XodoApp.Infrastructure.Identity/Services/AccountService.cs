@@ -185,8 +185,7 @@ namespace XodoApp.Infrastructure.Identity.Services
             }
             return response;
         }
-              
-
+        
         public async Task<string> ConfirmAccountAsync(string userId, string token)
         {
             var user = await _userManager.FindByIdAsync(userId);

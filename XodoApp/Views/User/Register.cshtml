@@ -1,0 +1,112 @@
+﻿@using XodoApp.Core.Application.ViewModels.Users;
+@model SaveUserViewModel
+@{
+    ViewData["Title"] = "Registro";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - XodoApp</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/css/styleLogin.css" asp-append-version="true" />
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 text-center mt-3">
+            <h2 class="">Registro de nuevo usuario</h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            @if (Model.HasError)
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <p>@Model.Error</p>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+
+                <form method="post" asp-controller="User" asp-action="Register" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label asp-for="FirstName" class="form-label">Nombre: </label>
+                    <input asp-for="FirstName" class="form-control" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="LastName" class="form-label">Apellido: </label>
+                    <input asp-for="LastName" class="form-control" />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Username" class="form-label">Nombre de usuario: </label>
+                    <input asp-for="Username" class="form-control" />
+                    <span asp-validation-for="Username" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Password" class="form-label">Contraseña: </label>
+                    <input asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="ConfirmPassword" class="form-label">Confirmar contraseña: </label>
+                    <input asp-for="ConfirmPassword" class="form-control" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+               
+                    <div class="mb-3">
+                        <label asp-for="File" class="form-label">Seleccione un archivo:</label>
+
+                        <input type="file" required asp-for="File" class="form-control" />
+
+                        <span asp-validation-for="File" class="text-danger"></span>
+                    </div>
+                <div class="mb-3">
+                    <label asp-for="Phone" class="form-label">Telefono: </label>
+                    <input asp-for="Phone" class="form-control" />
+                    <span asp-validation-for="Phone" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label">Correo: </label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Role" class="form-label">Tipo de usuario: </label>
+                    <select asp-for="Role" class="form-control">
+                       
+                        <option value="Client">Cliente</option>
+                        <option value="Agent">Agente</option>
+                    </select>
+                    <span asp-validation-for="Role" class="text-danger"></span>
+                </div>
+
+                
+
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                <button type="button" class="btn btn-warning" onclick="goBack()">Cancelar</button>
+                <p></p>
+                
+                <script>
+                    function goBack() {
+                        window.history.back();
+                    }
+                </script>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
