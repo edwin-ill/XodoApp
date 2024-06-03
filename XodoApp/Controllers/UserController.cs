@@ -37,7 +37,7 @@ namespace XodoApp.Controllers
             if (userVm != null && userVm.HasError != true)
             {
                 HttpContext.Session.Set<AuthenticationResponse>("user", userVm);
-                return RedirectToRoute(new { controller = "Home", action = "Index" });
+                return RedirectToRoute(new { controller = "Vehicle", action = "Index" });
             }
             else
             {

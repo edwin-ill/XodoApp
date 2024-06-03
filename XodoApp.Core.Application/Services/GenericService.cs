@@ -38,12 +38,7 @@ namespace XodoApp.Core.Application.Services
             SaveViewModel entityVm = _mapper.Map<SaveViewModel>(entity);
 
             return entityVm;
-        }
-
-        public virtual async Task<SaveViewModel> DeleteT(SaveViewModel vm)
-        {
-            return vm;
-        }
+        }               
 
         public virtual async Task Delete(int id)
         {
@@ -56,6 +51,14 @@ namespace XodoApp.Core.Application.Services
             var entity = await _repository.GetByIdAsync(id);
 
             SaveViewModel vm = _mapper.Map<SaveViewModel>(entity);
+            return vm;
+        }
+
+        public virtual async Task<ViewModel> GetByIdViewModel(int id)
+        {
+            var entity = await _repository.GetByIdAsync(id);
+
+            ViewModel vm = _mapper.Map<ViewModel>(entity);
             return vm;
         }
 

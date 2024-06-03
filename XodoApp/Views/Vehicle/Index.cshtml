@@ -1,0 +1,67 @@
+﻿@using XodoApp.Core.Application.ViewModels.Vehicles
+@model List<VehicleViewModel>
+
+@{
+    ViewData["Title"] = "Página principal";
+}
+<head>    
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="~/css/blocks.css">
+    <link href="~/css/style.css" rel="stylesheet">
+    <style>
+        img.responsive {
+            max-width: 100%;
+            max-height: 350px;
+            display: block;
+            margin: auto;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body class="text-muted">
+    <header class="bg-dark">        
+        <section class="bg-light pb-5 pt-5">
+            <div class="container pb-5 pt-5">
+                <div class="mb-4 row">
+                    <div class="col-md">
+                        <h2 class="h5 text-primary">Nuestros mejores carros</h2>
+                        <h3 class="fw-bold h1 mb-3 text-dark">Vehículos para todas tus necesidades</h3>
+                        <div class="bg-primary col-2 d-inline-flex mb-3 pb-1"></div>
+                    </div>
+                </div>
+
+            <div class="g-4 justify-content-center row row-cols-lg-3 row-cols-md-2">
+                
+                        @foreach (var vehicle in Model)
+                        {
+                        <div>
+                            <div class="bg-white border shadow-sm">
+                                @foreach(var image in vehicle.VehicleImages)
+                                {
+                                    <a href="#"><img src="@image.ImageUrl" class="responsive img-fluid w-100" alt="..."></a>
+                                }
+                                
+                                <div class="p-4">
+                                    <h4 class="fw-bold h5"><a href="" class="link-secondary text-decoration-none">@vehicle.CarMake @vehicle.Model</a></h4>
+                                    <p class="small">@vehicle.Description.</p>
+                                    <hr>
+                                    <div class="align-items-center d-flex justify-content-between">
+                                        <div class="align-items-center d-inline-flex gap-1 pb-1 pt-1">
+                                            <span>Año: @vehicle.Year</span>                                            
+                                            <span>@vehicle.TransmissionType - @vehicle.VehicleType</span>
+                                        </div>
+                                        <span class="fw-bold pb-1 pt-1 text-dark">RD$@vehicle.Price</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        }
+                               
+                
+                <div class="mt-5 text-center">
+                        <a asp-controller="Vehicle" asp-action="Create" class="btn btn-primary pb-2 pe-4 ps-4 pt-2">Agregar nuevo vehículo</a>
+                </div>
+            </div>
+        </section>
+    </header>
+</body> 

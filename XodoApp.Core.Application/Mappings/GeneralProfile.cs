@@ -30,6 +30,13 @@ namespace XodoApp.Core.Application.Mappings
             #endregion
             #region CQRS
             #region Vehicle
+            CreateMap<VehicleViewModel, Vehicle>()
+                .ForMember(x => x.Created, opt => opt.Ignore())
+                .ForMember(x => x.LastModified, opt => opt.Ignore())
+                .ForMember(x => x.LastModifiedBy, opt => opt.Ignore())
+                .ForMember(x => x.CreatedBy, opt => opt.Ignore())
+                .ForMember(x => x.Id , opt => opt.Ignore())
+                .ReverseMap();
             CreateMap<SaveVehicleViewModel, Vehicle>()
                 .ForMember(x => x.Created, opt => opt.Ignore())
                 .ForMember(x => x.LastModified, opt => opt.Ignore())
@@ -44,8 +51,32 @@ namespace XodoApp.Core.Application.Mappings
                 .ForMember(x => x.LastModifiedBy, opt => opt.Ignore())
                 .ForMember(x => x.CreatedBy, opt => opt.Ignore())
                 .ReverseMap();
+
+            CreateMap<DealershipViewModel, Dealership>()
+                .ForMember(x => x.Created, opt => opt.Ignore())
+                .ForMember(x => x.LastModified, opt => opt.Ignore())
+                .ForMember(x => x.LastModifiedBy, opt => opt.Ignore())
+                .ForMember(x => x.CreatedBy, opt => opt.Ignore())
+                .ReverseMap();
+            #endregion
+
+            #region VehicleImage
+            CreateMap<SaveVehicleImageViewModel, VehicleImage>()
+                .ForMember(x => x.Created, opt => opt.Ignore())
+                .ForMember(x => x.LastModified, opt => opt.Ignore())
+                .ForMember(x => x.LastModifiedBy, opt => opt.Ignore())
+                .ForMember(x => x.CreatedBy, opt => opt.Ignore())
+                .ReverseMap();
+
+            CreateMap<VehicleImageViewModel, VehicleImage>()
+               .ForMember(x => x.Created, opt => opt.Ignore())
+               .ForMember(x => x.LastModified, opt => opt.Ignore())
+               .ForMember(x => x.LastModifiedBy, opt => opt.Ignore())
+               .ForMember(x => x.CreatedBy, opt => opt.Ignore())
+               .ReverseMap();
             #endregion
             #endregion
+
 
         }
     }

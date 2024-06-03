@@ -1,9 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations;
+using XodoApp.Core.Application.ViewModels.Dealerships;
 
 namespace XodoApp.Core.Application.ViewModels.Vehicles
 {
     public class SaveVehicleViewModel
     {
+        public int Id { get; set; }
         public string? VIN { get; set; }
         [Required(ErrorMessage = "El campo marca es obligatorio.")]
         public string CarMake { get; set; }
@@ -19,12 +22,15 @@ namespace XodoApp.Core.Application.ViewModels.Vehicles
         public int? Mileage { get; set; }
         [Required(ErrorMessage = "El campo descripción es obligatorio.")]
         public string Description { get; set; }
-        [Required(ErrorMessage = "El campo imagen es obligatorio.")]
-        public string ImageUrl { get; set; }
         [Required(ErrorMessage = "El campo dealer es obligatorio.")]
         public int DealershipId { get; set; }
         [Required(ErrorMessage = "El campo tipo de vehículo es obligatorio.")]
         public string VehicleType { get; set; }
+        [DataType(DataType.Upload)]
+        public IFormFileCollection Files { get; set; }
+
+        public List<DealershipViewModel>? Dealerships { get; set; }
+
 
     }
 }

@@ -1,0 +1,112 @@
+﻿@using XodoApp.Core.Application.ViewModels.Vehicles;
+@model SaveVehicleViewModel 
+
+@{
+    bool editMode = Model.Id != 0;
+    string title = editMode ? $"Editando el vehículo {Model.Id}" : "Añadiendo un nuevo vehículo";
+    string action = editMode ? "Edit" : "Create";
+}
+
+<div class="container">
+    <h2>@title</h2>
+    <form method="post" asp-controller="Vehicle" asp-action="@action" enctype="multipart/form-data">
+       
+        <div class="form-group">
+            <label asp-for="VIN" class="control-label">VIN:</label>
+            <input asp-for="VIN" class="form-control" />
+            <span asp-validation-for="VIN" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="CarMake" class="form-label">Marca de carro: </label>
+            <select asp-for="CarMake" class="form-control">
+
+                <option value="Honda">Honda</option>
+                <option value="Toyota">Toyota</option>
+            </select>
+            <span asp-validation-for="CarMake" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Model" class="control-label">Model:</label>
+            <input asp-for="Model" class="form-control" />
+            <span asp-validation-for="Model" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Year" class="control-label">Year:</label>
+            <input asp-for="Year" class="form-control" />
+            <span asp-validation-for="Year" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Price" class="control-label">Price:</label>
+            <input asp-for="Price" class="form-control" />
+            <span asp-validation-for="Price" class="text-danger"></span>
+        </div>       
+        <div class="form-group">
+            <label asp-for="EngineType" class="control-label">EngineType:</label>
+            <input asp-for="EngineType" class="form-control" />
+            <span asp-validation-for="EngineType" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="TransmissionType" class="form-label">Tipo de transmisión: </label>
+            <select asp-for="TransmissionType" class="form-control">
+
+                <option value="Automática">Automática</option>
+                <option value="Mécanica">Mécanica / manual</option>
+            </select>
+            <span asp-validation-for="TransmissionType" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="VehicleType" class="form-label">Tipo de vehículo: </label>
+            <select asp-for="VehicleType" class="form-control">
+
+                <option value="SUV">SUV</option>
+                <option value="Hatchback">Hatchback</option>
+            </select>
+            <span asp-validation-for="VehicleType" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Color" class="control-label">Color:</label>
+            <input asp-for="Color" class="form-control" />
+            <span asp-validation-for="Color" class="text-danger"></span>
+        </div>      
+
+        <div class="form-group">
+            <label asp-for="Mileage" class="control-label">Mileage:</label>
+            <input asp-for="Mileage" class="form-control" />
+            <span asp-validation-for="Mileage" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Description" class="control-label">Description:</label>
+            <input asp-for="Description" class="form-control" />
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Files" class="form-label">Seleccione un archivo:</label>
+            @if (editMode)
+            {
+                <input asp-for="Files" class="form-control" />
+            }
+            else
+            {
+                <input required asp-for="Files" class="form-control" />
+            }
+
+            <span asp-validation-for="Files" class="text-danger"></span>
+        </div>     
+
+        <div class="form-group">
+            <label asp-for="DealershipId" class="form-label">Dealership: </label>
+            <select asp-for="DealershipId" asp-items="@(new SelectList(Model.Dealerships,"Id","Name"))" class="form-select">
+                <option value="0">Seleccione una opcion</option>
+
+            </select>
+            <span asp-validation-for="DealershipId" class="text-danger"></span>
+        </div>     
+       
+        <input type="hidden" asp-for="Id" />
+         <button type="submit" class="btn btn-primary">Guardar</button>
+        <a asp-controller="Vehicle" asp-action="Index" class="btn btn-secondary">Volver atrás</a>
+    </form>
+</div>

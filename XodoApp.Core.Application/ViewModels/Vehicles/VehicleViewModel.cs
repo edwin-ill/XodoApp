@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using XodoApp.Core.Application.ViewModels.Dealerships;
+using XodoApp.Core.Domain.Entities;
 
 namespace XodoApp.Core.Application.ViewModels.Vehicles
 {
@@ -19,9 +20,9 @@ namespace XodoApp.Core.Application.ViewModels.Vehicles
         public string TransmissionType { get; set; }
         public int? Mileage { get; set; }
         public string Description { get; set; } 
-        public string ImageUrl { get; set; } 
         public int DealershipId { get; set; }
         public DealershipViewModel Dealership { get; set; }
         public string VehicleType { get; set; }
+        public List<VehicleImageViewModel> VehicleImages { get; set; }
     }
 }

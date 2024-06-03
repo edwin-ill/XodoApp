@@ -4,6 +4,7 @@ namespace XodoApp.Core.Application.ViewModels.Dealerships
 {
     public class SaveDealershipViewModel
     {
+        public int Id { get; set; }
         [Required(ErrorMessage = "El campo nombre es obligatorio.")]
         public string Name { get; set; }
         [Required(ErrorMessage = "El campo dirección es obligatorio.")]

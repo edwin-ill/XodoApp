@@ -1,9 +1,11 @@
-﻿using XodoApp.Core.Application.ViewModels.Dealerships;
+﻿using XodoApp.Core.Application.ViewModels.Vehicles;
 using XodoApp.Core.Domain.Entities;
 
 namespace XodoApp.Core.Application.Interfaces.Services
 {
-    public interface IDealershipService : IGenericService<SaveDealershipViewModel, DealershipViewModel, Dealership>
+    public interface IVehicleService : IGenericService<SaveVehicleViewModel, VehicleViewModel, Vehicle>
     {
+        Task<SaveVehicleImageViewModel> AddImage(SaveVehicleImageViewModel vm);
+        Task<List<VehicleViewModel>> GetAllViewModelWithImages();
     }
 }

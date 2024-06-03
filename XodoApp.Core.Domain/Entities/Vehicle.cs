@@ -20,10 +20,10 @@ namespace XodoApp.Core.Domain.Entities
         public TransmissionType TransmissionType { get; set; } // e.g., Automatic, Manual
         public int? Mileage { get; set; } // Mileage of the vehicle
         public string Description { get; set; } // Description of the vehicle
-        public string ImageUrl { get; set; } // URL to an image of the vehicle
         public int DealershipId  { get; set; }
         public Dealership Dealership { get; set; } // Navigation property to Dealership
         public VehicleType VehicleType { get; set; }
+        public List<VehicleImage> VehicleImages { get; set; }
     }
 }
  

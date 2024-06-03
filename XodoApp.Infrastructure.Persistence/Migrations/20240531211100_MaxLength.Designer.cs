@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using XodoApp.Infrastructure.Persistence.Contexts;
 
@@ -11,9 +12,11 @@ using XodoApp.Infrastructure.Persistence.Contexts;
 namespace XodoApp.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20240531211100_MaxLength")]
+    partial class MaxLength
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -103,8 +106,11 @@ namespace XodoApp.Infrastructure.Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EngineType")
-                        .HasMaxLength(12)
-                        .HasColumnType("nvarchar(12)");
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("LastModified")
                         .HasColumnType("datetime2");
@@ -149,40 +155,6 @@ namespace XodoApp.Infrastructure.Persistence.Migrations
                     b.ToTable("Vehicles", (string)null);
                 });
 
-            modelBuilder.Entity("XodoApp.Core.Domain.Entities.VehicleImage", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime?>("Created")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("LastModified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("LastModifiedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("VehicleId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("VehicleId");
-
-                    b.ToTable("VehicleImages", (string)null);
-                });
-
             modelBuilder.Entity("XodoApp.Core.Domain.Entities.Vehicle", b =>
                 {
                     b.HasOne("XodoApp.Core.Domain.Entities.Dealership", "Dealership")
@@ -194,25 +166,9 @@ namespace XodoApp.Infrastructure.Persistence.Migrations
                     b.Navigation("Dealership");
                 });
 
-            modelBuilder.Entity("XodoApp.Core.Domain.Entities.VehicleImage", b =>
-                {
-                    b.HasOne("XodoApp.Core.Domain.Entities.Vehicle", "Vehicle")
-                        .WithMany("VehicleImages")
-                        .HasForeignKey("VehicleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Vehicle");
-                });
-
             modelBuilder.Entity("XodoApp.Core.Domain.Entities.Dealership", b =>
                 {
                     b.Navigation("Vehicles");
-                });
-
-            modelBuilder.Entity("XodoApp.Core.Domain.Entities.Vehicle", b =>
-                {
-                    b.Navigation("VehicleImages");
                 });
 #pragma warning restore 612, 618
         }

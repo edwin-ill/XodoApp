@@ -16,10 +16,10 @@ namespace XodoApp.Core.Application.Interfaces.Services
         Task<SaveViewModel> Add(SaveViewModel vm);
 
         Task Delete(int id);
-        Task<SaveViewModel> DeleteT(SaveViewModel vm);
-
+    
         Task<SaveViewModel> GetByIdSaveViewModel(int id);
 
         Task<List<ViewModel>> GetAllViewModel();
+        Task<ViewModel> GetByIdViewModel(int id);
     }
 }
