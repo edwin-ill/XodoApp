@@ -9,11 +9,11 @@ namespace XodoApp.Core.Domain.Entities
 {
     public class Dealership : AuditableBaseEntity
     {
-        public string Name { get; set; } // Name of the dealership
-        public string Address { get; set; } // Physical address
-        public string City { get; set; } // City location
-        public string PhoneNumber { get; set; } // Contact phone number
-        public string Email { get; set; } // Contact email
-        public List<Vehicle>? Vehicles { get; set; } // List of vehicles available at the dealership
+        public string Name { get; set; } 
+        public string Address { get; set; } 
+        public string City { get; set; } 
+        public string PhoneNumber { get; set; }
+        public string Email { get; set; }
+        public List<Vehicle>? Vehicles { get; set; }
     }
 }

@@ -5,12 +5,13 @@ using XodoApp.Infrastructure.Identity;
 using XodoApp.Infrastructure.Shared;
 using WebApp.XodoApp.Middlewares;
 using XodoApp.Infrastructure.Persistence;
-using XodoApp.Infrastructure.Identity.Mappings;
+using XodoApp.Infrastructure.Identity.Mappings; 
 using XodoApp.Core.Application;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 builder.Services.AddSession();
 builder.Services.AddPersistenceInfrastructure(builder.Configuration);
@@ -23,7 +24,9 @@ builder.Services.AddScoped<LoginAuthorize>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddTransient<ValidateUserSession, ValidateUserSession>();
 
+
 var app = builder.Build();
+
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
@@ -59,6 +62,7 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
 
 app.MapControllerRoute(
     name: "default",

@@ -1,0 +1,6 @@
+@XodoApp.WebApi_HostAddress = http://localhost:5015
+
+GET {{XodoApp.WebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

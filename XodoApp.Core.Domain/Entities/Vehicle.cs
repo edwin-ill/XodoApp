@@ -10,18 +10,18 @@ namespace XodoApp.Core.Domain.Entities
 {
     public class Vehicle : AuditableBaseEntity
     {
-        public string? VIN { get; set; } // Vehicle Identification Number
-        public CarMake CarMake { get; set; } // Brand of the vehicle, e.g., Ford, Toyota
-        public string Model { get; set; } // Model of the vehicle, e.g., Mustang, Camry
-        public int Year { get; set; } // Year of manufacture
-        public string? Color { get; set; } // Color of the vehicle
-        public decimal? Price { get; set; } // Sale price of the vehicle
-        public string? EngineType { get; set; } // e.g., V6, Electric
-        public TransmissionType TransmissionType { get; set; } // e.g., Automatic, Manual
-        public int? Mileage { get; set; } // Mileage of the vehicle
-        public string Description { get; set; } // Description of the vehicle
+        public string? VIN { get; set; } 
+        public CarMake CarMake { get; set; } 
+        public string Model { get; set; } 
+        public int Year { get; set; } 
+        public string? Color { get; set; } 
+        public decimal? Price { get; set; }
+        public string? EngineType { get; set; } 
+        public TransmissionType TransmissionType { get; set; } 
+        public int? Mileage { get; set; }
+        public string Description { get; set; } 
         public int DealershipId  { get; set; }
-        public Dealership Dealership { get; set; } // Navigation property to Dealership
+        public Dealership Dealership { get; set; } 
         public VehicleType VehicleType { get; set; }
         public List<VehicleImage> VehicleImages { get; set; }
     }

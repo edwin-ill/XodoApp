@@ -6,14 +6,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
+using System.Text;
+using XodoApp.Core.Application.Interfaces.Services;
+using XodoApp.Core.Application.Wrappers;
+using XodoApp.Core.Domain.Settings;
 using XodoApp.Infrastructure.Identity.Contexts;
 using XodoApp.Infrastructure.Identity.Entities;
 using XodoApp.Infrastructure.Identity.Services;
-using XodoApp.Core.Application.Interfaces.Services;
-using XodoApp.Core.Domain.Settings;
-using System.Text;
-using XodoApp.Core.Application.Dtos.Account;
-using XodoApp.Core.Application.Services;
 
 namespace XodoApp.Infrastructure.Identity
 {
@@ -21,21 +20,7 @@ namespace XodoApp.Infrastructure.Identity
     {
         public static void AddIdentityInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
-            #region Contexts
-            if (configuration.GetValue<bool>("UseInMemoryDatabase"))
-            {
-                services.AddDbContext<IdentityContext>(options => options.UseInMemoryDatabase("IdentityDb"));
-            }
-            else
-            {
-                services.AddDbContext<IdentityContext>(options =>
-                {
-                    options.EnableSensitiveDataLogging();
-                    options.UseSqlServer(configuration.GetConnectionString("IdentityConnection"),
-                    m => m.MigrationsAssembly(typeof(IdentityContext).Assembly.FullName));
-                });
-            }
-            #endregion
+            ContextConfiguration(services, configuration);
 
             #region Identity
             services.AddIdentity<ApplicationUser, IdentityRole>()
@@ -70,37 +55,85 @@ namespace XodoApp.Infrastructure.Identity
                 };
                 options.Events = new JwtBearerEvents()
                 {
-                    OnAuthenticationFailed = c =>
+                    OnAuthenticationFailed = context =>
                     {
-                        c.NoResult();
-                        c.Response.StatusCode = 500;
-                        c.Response.ContentType = "text/plain";
-                        return c.Response.WriteAsync(c.Exception.ToString());
+                        context.NoResult();
+                        context.Response.StatusCode = 500;
+                        context.Response.ContentType = "text/plain";
+                        return context.Response.WriteAsync(context.Exception.ToString());
                     },
-                    OnChallenge = c =>
+                    OnChallenge = context =>
                     {
-                        c.HandleResponse();
-                        c.Response.StatusCode = 401;
-                        c.Response.ContentType = "application/json";
-                        var result = JsonConvert.SerializeObject(new JwtResponse { HasError = true, Error = "You are not Authorized" });
-                        return c.Response.WriteAsync(result);
+                        context.HandleResponse();
+                        context.Response.StatusCode = 401;
+                        context.Response.ContentType = "application/json";
+                        var result = JsonConvert.SerializeObject(new Response<string>("You are not Authorized"));
+                        return context.Response.WriteAsync(result);
                     },
-                    OnForbidden = c =>
+                    OnForbidden = context =>
                     {
-                        c.Response.StatusCode = 403;
-                        c.Response.ContentType = "application/json";
-                        var result = JsonConvert.SerializeObject(new JwtResponse { HasError = true, Error = "You are not Authorized to access this resource" });
-                        return c.Response.WriteAsync(result);
+                        context.Response.StatusCode = 403;
+                        context.Response.ContentType = "application/json";
+                        var result = JsonConvert.SerializeObject(new Response<string>("You are not authorized to access this resource"));
+                        return context.Response.WriteAsync(result);
                     }
                 };
 
             });
             #endregion
 
+            ServiceConfiguration(services);
+        }
+
+        public static void AddIdentityInfrastructureForWeb(this IServiceCollection services, IConfiguration configuration)
+        {
+            ContextConfiguration(services, configuration);
+
+            #region Identity
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<IdentityContext>().AddDefaultTokenProviders();
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/User";
+                options.AccessDeniedPath = "/User/AccessDenied";
+            });
+
+            services.AddAuthentication();
+            #endregion
+
+            ServiceConfiguration(services);
+        }
+
+        #region "Private methods"
+
+        private static void ContextConfiguration(IServiceCollection services, IConfiguration configuration)
+        {
+            #region Contexts
+            if (configuration.GetValue<bool>("UseInMemoryDatabase"))
+            {
+                services.AddDbContext<IdentityContext>(options => options.UseInMemoryDatabase("IdentityDb"));
+            }
+            else
+            {
+                services.AddDbContext<IdentityContext>(options =>
+                {
+                    options.EnableSensitiveDataLogging();
+                    options.UseSqlServer(configuration.GetConnectionString("IdentityConnection"),
+                    m => m.MigrationsAssembly(typeof(IdentityContext).Assembly.FullName));
+                });
+            }
+            #endregion
+        }
+
+        private static void ServiceConfiguration(IServiceCollection services)
+        {
             #region Services
             services.AddTransient<IAccountService, AccountService>();
             #endregion
         }
+        #endregion
     }
-   
 }
+
+
