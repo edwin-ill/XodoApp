@@ -8,7 +8,17 @@ using XodoApp.Infrastructure.Shared;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "MyPolicy",
+        builder =>
+        {
+            builder.WithOrigins("*")
+                    .WithMethods("POST", "DELETE", "GET")
+                    .AllowAnyHeader();
+        });
+});  
+
 builder.Services.AddControllers(options =>
 {
     options.Filters.Add(new ProducesAttribute("application/json"));
@@ -48,7 +58,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseRouting();
-
+app.UseCors("MyPolicy");
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseSwaggerExtension();

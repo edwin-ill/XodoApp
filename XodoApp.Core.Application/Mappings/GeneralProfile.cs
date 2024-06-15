@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using XodoApp.Core.Application.Dtos.Account;
 using XodoApp.Core.Application.Dtos.Vehicle;
 using XodoApp.Core.Application.Features.Vehicles.Commands.CreateVehicle;
+using XodoApp.Core.Application.Features.Vehicles.Commands.UpdateVehicle;
 using XodoApp.Core.Application.ViewModels.Dealerships;
 using XodoApp.Core.Application.ViewModels.Users;
 using XodoApp.Core.Application.ViewModels.Vehicles;
@@ -85,13 +86,27 @@ namespace XodoApp.Core.Application.Mappings
                 .ReverseMap();
             #endregion
             #region CQRS  
+            #region Vehicle
             CreateMap<CreateVehiclesCommand, Vehicle>()
                 .ForMember(x => x.Created, opt => opt.Ignore())
                 .ForMember(x => x.LastModified, opt => opt.Ignore())
                 .ForMember(x => x.LastModifiedBy, opt => opt.Ignore())
                 .ForMember(x => x.CreatedBy, opt => opt.Ignore())
                 .ReverseMap();
-            #region Vehicle
+
+            CreateMap<UpdateVehicleCommand, Vehicle>()
+               .ForMember(x => x.Created, opt => opt.Ignore())
+               .ForMember(x => x.LastModified, opt => opt.Ignore())
+               .ForMember(x => x.LastModifiedBy, opt => opt.Ignore())
+               .ForMember(x => x.CreatedBy, opt => opt.Ignore())
+               .ReverseMap();
+            CreateMap<VehicleUpdateResponse, Vehicle>()
+               .ForMember(x => x.Created, opt => opt.Ignore())
+               .ForMember(x => x.LastModified, opt => opt.Ignore())
+               .ForMember(x => x.LastModifiedBy, opt => opt.Ignore())
+               .ForMember(x => x.CreatedBy, opt => opt.Ignore())
+               .ReverseMap();
+
             #endregion
             #endregion
 
