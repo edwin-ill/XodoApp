@@ -5,7 +5,7 @@ namespace XodoApp.Core.Application.Dtos.Vehicle
 {
     public class VehicleDto
     {
-        public int Id { get; set; }
+        public int Id { get; set; } 
         public string? VIN { get; set; }
         public string CarMake { get; set; }
         public string Model { get; set; }

@@ -5,7 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using XodoApp.Core.Application.Dtos.Account;
+using XodoApp.Core.Application.Dtos.Dealership;
 using XodoApp.Core.Application.Dtos.Vehicle;
+using XodoApp.Core.Application.Features.Dealerships.Commands.CreateDealership;
+using XodoApp.Core.Application.Features.Dealerships.Commands.UpdateDealership;
 using XodoApp.Core.Application.Features.Vehicles.Commands.CreateVehicle;
 using XodoApp.Core.Application.Features.Vehicles.Commands.UpdateVehicle;
 using XodoApp.Core.Application.ViewModels.Dealerships;
@@ -61,6 +64,13 @@ namespace XodoApp.Core.Application.Mappings
                 .ForMember(x => x.LastModifiedBy, opt => opt.Ignore())
                 .ForMember(x => x.CreatedBy, opt => opt.Ignore())
                 .ReverseMap();
+
+            CreateMap<DealershipDto, Dealership>()
+                .ForMember(x => x.Created, opt => opt.Ignore())
+                .ForMember(x => x.LastModified, opt => opt.Ignore())
+                .ForMember(x => x.LastModifiedBy, opt => opt.Ignore())
+                .ForMember(x => x.CreatedBy, opt => opt.Ignore())
+                .ReverseMap();
             #endregion
 
             #region VehicleImage
@@ -107,6 +117,27 @@ namespace XodoApp.Core.Application.Mappings
                .ForMember(x => x.CreatedBy, opt => opt.Ignore())
                .ReverseMap();
 
+            #endregion
+            #region Dealership
+            CreateMap<CreateDealershipsCommand, Dealership>()
+                .ForMember(x => x.Created, opt => opt.Ignore())
+                .ForMember(x => x.LastModified, opt => opt.Ignore())
+                .ForMember(x => x.LastModifiedBy, opt => opt.Ignore())
+                .ForMember(x => x.CreatedBy, opt => opt.Ignore())
+                .ReverseMap();
+
+            CreateMap<UpdateDealershipCommand, Dealership>()
+               .ForMember(x => x.Created, opt => opt.Ignore())
+               .ForMember(x => x.LastModified, opt => opt.Ignore())
+               .ForMember(x => x.LastModifiedBy, opt => opt.Ignore())
+               .ForMember(x => x.CreatedBy, opt => opt.Ignore())
+               .ReverseMap();
+            CreateMap<DealershipUpdateResponse, Dealership>()
+               .ForMember(x => x.Created, opt => opt.Ignore())
+               .ForMember(x => x.LastModified, opt => opt.Ignore())
+               .ForMember(x => x.LastModifiedBy, opt => opt.Ignore())
+               .ForMember(x => x.CreatedBy, opt => opt.Ignore())
+               .ReverseMap();
             #endregion
             #endregion
 

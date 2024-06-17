@@ -24,7 +24,7 @@ namespace XodoApp.WebApi.Controllers
         [SwaggerOperation(
             Summary = "Login del usuario",
             Description = "Autentica al usuario en el sistema y retorna un JWT")]
-        public async Task<IActionResult> AuthenticateAsync(AuthenticationRequest request)
+        public async Task<IActionResult> AuthenticateAsync([FromBody] AuthenticationRequest request)
         {
             return Ok(await _accountService.AuthenticateAsync(request));
         }
