@@ -16,6 +16,7 @@ namespace XodoApp.Core.Application
             services.AddTransient<IVehicleService, VehicleService>();
             services.AddTransient<IDealershipService, DealershipService>();
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IImageService, ImageService>();
         }
     }
 }

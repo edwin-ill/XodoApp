@@ -55,27 +55,31 @@ namespace XodoApp.Infrastructure.Identity
                 };
                 options.Events = new JwtBearerEvents()
                 {
-                    OnAuthenticationFailed = context =>
+                    OnAuthenticationFailed = async context =>
                     {
                         context.NoResult();
                         context.Response.StatusCode = 500;
-                        context.Response.ContentType = "text/plain";
-                        return context.Response.WriteAsync(context.Exception.ToString());
+                        context.Response.ContentType = "application/json";
+                        await context.Response.StartAsync();
+                        var result = JsonConvert.SerializeObject(new Response<string>("An error occurred processing your authentication."));
+                        await context.Response.WriteAsync(result);
                     },
-                    OnChallenge = context =>
+                    OnChallenge = async context =>
                     {
                         context.HandleResponse();
                         context.Response.StatusCode = 401;
                         context.Response.ContentType = "application/json";
+                        await context.Response.StartAsync();
                         var result = JsonConvert.SerializeObject(new Response<string>("You are not Authorized"));
-                        return context.Response.WriteAsync(result);
+                        await context.Response.WriteAsync(result);
                     },
-                    OnForbidden = context =>
+                    OnForbidden = async context =>
                     {
                         context.Response.StatusCode = 403;
                         context.Response.ContentType = "application/json";
+                        await context.Response.StartAsync();
                         var result = JsonConvert.SerializeObject(new Response<string>("You are not authorized to access this resource"));
-                        return context.Response.WriteAsync(result);
+                        await context.Response.WriteAsync(result);
                     }
                 };
 

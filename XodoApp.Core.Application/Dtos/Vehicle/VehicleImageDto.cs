@@ -11,5 +11,6 @@ namespace XodoApp.Core.Application.Dtos.Vehicle
         public int Id { get; set; }
         public int VehicleId { get; set; }
         public string ImageUrl { get; set; }
+        public string PublicId { get; set; }
     }
 }

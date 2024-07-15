@@ -94,7 +94,7 @@ namespace XodoApp.WebApi.Controllers.v1
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Authorize(Roles = "Admin")]
         [SwaggerOperation(
-            Summary = "Elminar un dealer",
+            Summary = "Eliminar un dealer",
             Description = "Recibe los parametros necesarios para eliminar un dealer existente")]
         public async Task<IActionResult> Delete(int id)
         {

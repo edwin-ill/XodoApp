@@ -16,7 +16,7 @@ namespace XodoApp.Core.Application.Features.Vehicles.Queries.GetVehicleById
 {
     public class GetVehicleByIdQuery : IRequest<Response<VehicleDto>>
     {
-        [SwaggerParameter(Description = "El id del vehículo que desea buscar")]
+        [SwaggerParameter(Description = "El Id del vehículo que desea buscar")]
         public int Id { get; set; }
         public class GetVehicleByIdQueryHandler : IRequestHandler<GetVehicleByIdQuery, Response<VehicleDto>>
         {
@@ -38,7 +38,7 @@ namespace XodoApp.Core.Application.Features.Vehicles.Queries.GetVehicleById
 
             private async Task<VehicleDto> GetByIdViewModel(int Id)
             {
-                var vehicleList = await _vehicleRepository.GetAllAsync();
+                var vehicleList = await _vehicleRepository.GetAllWithImagesAsync();
 
                 var select = vehicleList.FirstOrDefault(f => f.Id == Id);
                 var vehicleDto = _mapper.Map<VehicleDto>(select);

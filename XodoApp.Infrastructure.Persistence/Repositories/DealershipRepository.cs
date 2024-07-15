@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using XodoApp.Core.Application.Interfaces.Repositories;
+﻿using XodoApp.Core.Application.Interfaces.Repositories;
 using XodoApp.Core.Domain.Entities;
 using XodoApp.Infrastructure.Persistence.Contexts;
 

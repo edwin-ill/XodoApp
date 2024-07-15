@@ -1,9 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using XodoApp.Core.Application.Interfaces.Repositories;
 using XodoApp.Infrastructure.Persistence.Contexts;
 

@@ -12,5 +12,6 @@ namespace XodoApp.Core.Domain.Entities
         public int VehicleId { get; set; }
         public string ImageUrl { get; set; }
         public Vehicle Vehicle { get; set; }
+        public string PublicId { get; set; }
     }
 }

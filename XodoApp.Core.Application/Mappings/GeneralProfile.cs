@@ -9,6 +9,7 @@ using XodoApp.Core.Application.Dtos.Dealership;
 using XodoApp.Core.Application.Dtos.Vehicle;
 using XodoApp.Core.Application.Features.Dealerships.Commands.CreateDealership;
 using XodoApp.Core.Application.Features.Dealerships.Commands.UpdateDealership;
+using XodoApp.Core.Application.Features.Images.Commands.CreateImage;
 using XodoApp.Core.Application.Features.Vehicles.Commands.CreateVehicle;
 using XodoApp.Core.Application.Features.Vehicles.Commands.UpdateVehicle;
 using XodoApp.Core.Application.ViewModels.Dealerships;
@@ -33,8 +34,7 @@ namespace XodoApp.Core.Application.Mappings
             .ForMember(x => x.HasError, opt => opt.Ignore())
             .ForMember(x => x.Error, opt => opt.Ignore())
             .ReverseMap();
-            #endregion
-            
+            #endregion            
             #region Vehicle
             CreateMap<VehicleViewModel, Vehicle>()
                 .ForMember(x => x.Created, opt => opt.Ignore())
@@ -72,7 +72,6 @@ namespace XodoApp.Core.Application.Mappings
                 .ForMember(x => x.CreatedBy, opt => opt.Ignore())
                 .ReverseMap();
             #endregion
-
             #region VehicleImage
             CreateMap<SaveVehicleImageViewModel, VehicleImage>()
                 .ForMember(x => x.Created, opt => opt.Ignore())
@@ -104,6 +103,24 @@ namespace XodoApp.Core.Application.Mappings
                 .ForMember(x => x.CreatedBy, opt => opt.Ignore())
                 .ReverseMap();
 
+            CreateMap<CreateVehiclesCommand, SaveVehicleViewModel>()
+                .ReverseMap();
+
+            CreateMap<VehiclePatchDto, Vehicle>()
+              .ForMember(x => x.Created, opt => opt.Ignore())
+              .ForMember(x => x.LastModified, opt => opt.Ignore())
+              .ForMember(x => x.LastModifiedBy, opt => opt.Ignore())
+              .ForMember(x => x.CreatedBy, opt => opt.Ignore())
+              .ReverseMap();
+
+            CreateMap<VehicleImageDto, VehicleImage>()
+             .ForMember(x => x.Created, opt => opt.Ignore())
+             .ForMember(x => x.LastModified, opt => opt.Ignore())
+             .ForMember(x => x.LastModifiedBy, opt => opt.Ignore())
+             .ForMember(x => x.CreatedBy, opt => opt.Ignore())
+             .ReverseMap();
+
+
             CreateMap<UpdateVehicleCommand, Vehicle>()
                .ForMember(x => x.Created, opt => opt.Ignore())
                .ForMember(x => x.LastModified, opt => opt.Ignore())
@@ -116,6 +133,16 @@ namespace XodoApp.Core.Application.Mappings
                .ForMember(x => x.LastModifiedBy, opt => opt.Ignore())
                .ForMember(x => x.CreatedBy, opt => opt.Ignore())
                .ReverseMap();
+
+            CreateMap<VehicleCreateResponse, Vehicle>()
+              .ForMember(x => x.Created, opt => opt.Ignore())
+              .ForMember(x => x.LastModified, opt => opt.Ignore())
+              .ForMember(x => x.LastModifiedBy, opt => opt.Ignore())
+              .ForMember(x => x.CreatedBy, opt => opt.Ignore())
+              .ReverseMap();
+
+            CreateMap<VehicleCreateResponse, SaveVehicleViewModel>()
+              .ReverseMap();
 
             #endregion
             #region Dealership
@@ -139,9 +166,15 @@ namespace XodoApp.Core.Application.Mappings
                .ForMember(x => x.CreatedBy, opt => opt.Ignore())
                .ReverseMap();
             #endregion
+            #region Image
+            CreateMap<CreateImagesCommand, VehicleImage>()
+                .ForMember(x => x.Created, opt => opt.Ignore())
+                .ForMember(x => x.LastModified, opt => opt.Ignore())
+                .ForMember(x => x.LastModifiedBy, opt => opt.Ignore())
+                .ForMember(x => x.CreatedBy, opt => opt.Ignore())
+                .ReverseMap();
             #endregion
-
-
+            #endregion
         }
     }
 }

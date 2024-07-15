@@ -68,9 +68,6 @@ namespace XodoApp.Infrastructure.Persistence.Contexts
                 .HasColumnType("decimal(18, 2)");
             modelBuilder.Entity<Vehicle>()
                 .Property(vehicle => vehicle.CarMake)
-                .HasConversion(
-                    v => v.ToString(),
-                    v => (CarMake)Enum.Parse(typeof(CarMake), v))
                 .HasMaxLength(28)
                 .IsRequired();
             modelBuilder.Entity<Vehicle>()
@@ -84,17 +81,11 @@ namespace XodoApp.Infrastructure.Persistence.Contexts
             modelBuilder.Entity<Vehicle>()
                 .Property(vehicle => vehicle.TransmissionType)
                 .HasMaxLength(12)
-                .IsRequired()
-                .HasConversion(
-                    v => v.ToString(),
-                    v => (TransmissionType)Enum.Parse(typeof(TransmissionType), v));           
+                .IsRequired();
             modelBuilder.Entity<Vehicle>()
                 .Property(vehicle => vehicle.VehicleType)
                 .HasMaxLength(16)
-                .IsRequired()
-                .HasConversion(
-                    v => v.ToString(),
-                    v => (VehicleType)Enum.Parse(typeof(VehicleType), v));
+                .IsRequired();
             #endregion
             #region dealership
             modelBuilder.Entity<Dealership>()

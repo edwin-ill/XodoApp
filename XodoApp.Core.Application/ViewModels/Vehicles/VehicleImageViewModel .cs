@@ -10,5 +10,6 @@ namespace XodoApp.Core.Application.ViewModels.Vehicles
     {
         public int VehicleId { get; set; }
         public string ImageUrl { get; set; }
+        public string PublicId { get; set; }
     }
 }

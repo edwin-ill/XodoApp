@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Net.Mime;
@@ -8,7 +10,8 @@ using XodoApp.Core.Application.Features.Vehicles.Commands.DeleteVehicleById;
 using XodoApp.Core.Application.Features.Vehicles.Commands.UpdateVehicle;
 using XodoApp.Core.Application.Features.Vehicles.Queries.GetAllVehicle;
 using XodoApp.Core.Application.Features.Vehicles.Queries.GetVehicleById;
-using XodoApp.Core.Application.ViewModels.Vehicles;
+using XodoApp.Core.Application.Features.Vehicles.Queries.GetVehicleByVin;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace XodoApp.WebApi.Controllers.v1
 {
@@ -30,19 +33,20 @@ namespace XodoApp.WebApi.Controllers.v1
 
         }
 
+
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(VehicleDto))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [SwaggerOperation(
-           Summary = "Vehículo por Id",
-           Description = "Obtiene un vehículo filtrando por el Id del mismo")]
+           Summary = "Vehículo por VIN",
+           Description = "Obtiene un vehículo filtrando por el VIN del mismo")]
         public async Task<IActionResult> Get(int id)
         {
             return Ok(await Mediator.Send(new GetVehicleByIdQuery { Id = id }));
         }
 
- 
+
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -59,34 +63,36 @@ namespace XodoApp.WebApi.Controllers.v1
                 return BadRequest();
             }
 
-            await Mediator.Send(command);
-            return NoContent();
-
-
+            var result = await Mediator.Send(command);
+            var uri = Url.Action("GetVehicleByIdCommand", new { id = result.Data.Id });
+            return Created(uri, result.Data);
         }
 
-        [HttpPut("{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(SaveVehicleViewModel))]
+        [HttpPatch("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(VehiclePatchDto))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [Authorize(Roles = "Admin")]
         [SwaggerOperation(
-            Summary = "Actualización de vehículos",
-            Description = "Recibe un vehículo ya existente para guardar los cambios")]
-        [Consumes(MediaTypeNames.Application.Json)]
-        public async Task<IActionResult> Put(int id, UpdateVehicleCommand command)
+        Summary = "Actualización parcial del vehículo ",
+        Description = "Recibe un documento JSON PATCH para actualizar parcialmente el vehículo")]
+        [Consumes("application/json-patch+json")]
+        public async Task<IActionResult> Patch(int id, [FromBody] JsonPatchDocument<VehiclePatchDto> patchDocument)
         {
-
-            if (!ModelState.IsValid)
+            if (patchDocument == null)
             {
                 return BadRequest();
             }
-            if (id != command.Id)
-            {
-                return BadRequest();
-            }
-            return Ok(await Mediator.Send(command));
 
+            var command = new UpdateVehicleCommand
+            {
+                Id = id,
+                PatchDocument = patchDocument
+            };
+
+            var result = await Mediator.Send(command);
+
+            return result.Data != null ? Ok(result) : NotFound();
         }
 
         [HttpDelete("{id}")]
@@ -94,7 +100,7 @@ namespace XodoApp.WebApi.Controllers.v1
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Authorize(Roles = "Admin")]
         [SwaggerOperation(
-            Summary = "Elminar un vehículo",
+            Summary = "Eliminar un vehículo",
             Description = "Recibe los parametros necesarios para eliminar un vehículo existente")]
         public async Task<IActionResult> Delete(int id)
         {

@@ -27,7 +27,8 @@ namespace XodoApp.Infrastructure.Persistence
             #region Repositories
             services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddTransient<IVehicleRepository, VehicleRepository>();
-            services.AddTransient<IDealershipRepository, DealershipRepository>();        
+            services.AddTransient<IDealershipRepository, DealershipRepository>();
+            services.AddTransient<IImageRepository, ImageRepository>();
             #endregion
         }
     }

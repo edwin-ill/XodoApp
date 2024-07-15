@@ -35,7 +35,7 @@ namespace XodoApp.Core.Application.Services
             SaveVehicleImageViewModel entityVm = _mapper.Map<SaveVehicleImageViewModel>(entity);
 
             return entityVm;
-        }
+        }      
 
         public async Task<List<VehicleViewModel>> GetAllViewModelWithImages()
         {

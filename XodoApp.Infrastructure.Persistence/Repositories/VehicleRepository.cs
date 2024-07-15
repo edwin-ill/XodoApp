@@ -1,9 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using XodoApp.Core.Application.Interfaces.Repositories;
 using XodoApp.Core.Domain.Entities;
 using XodoApp.Infrastructure.Persistence.Contexts;
@@ -31,6 +26,13 @@ namespace XodoApp.Infrastructure.Persistence.Repositories
             return vehicleList;
         }
 
+        public async Task<Vehicle> GetByIdWithImages(int id)
+        {
+            return await _dbContext.Vehicles
+                            .Include(v => v.VehicleImages)
+                            .FirstOrDefaultAsync(v => v.Id == id);
+        }
+
 
         public async Task<VehicleImage> AddImage(VehicleImage entity)
         {
@@ -38,5 +40,12 @@ namespace XodoApp.Infrastructure.Persistence.Repositories
             await _dbContext.SaveChangesAsync();
             return entity;
         }
+
+        public async Task DeleteImage(VehicleImage entity)
+        {
+            _dbContext.Set<VehicleImage>().Remove(entity);
+            await _dbContext.SaveChangesAsync();
+        }
+
     }
 }

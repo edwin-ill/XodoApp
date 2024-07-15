@@ -1,5 +1,7 @@
-﻿using XodoApp.Core.Application.ViewModels.Dealerships;
+﻿using XodoApp.Core.Application.Dtos.Dealership;
+using XodoApp.Core.Application.ViewModels.Dealerships;
 using XodoApp.Core.Application.ViewModels.Vehicles;
+using XodoApp.Core.Domain.Entities;
 
 namespace XodoApp.Core.Application.Dtos.Vehicle
 {
@@ -13,11 +15,14 @@ namespace XodoApp.Core.Application.Dtos.Vehicle
         public string? Color { get; set; }
         public decimal? Price { get; set; }
         public string? EngineType { get; set; }
+        public string? Status { get; set; }
         public string TransmissionType { get; set; }
         public int? Mileage { get; set; }
         public string Description { get; set; }
         public int DealershipId { get; set; }
         public string VehicleType { get; set; }
+        public DealershipDto? Dealership { get; set; }
+        public List<VehicleImageDto> VehicleImages { get; set; }
 
     }
 }

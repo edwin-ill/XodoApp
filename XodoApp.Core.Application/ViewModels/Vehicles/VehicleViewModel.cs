@@ -18,6 +18,7 @@ namespace XodoApp.Core.Application.ViewModels.Vehicles
         public decimal? Price { get; set; }
         public string? EngineType { get; set; } 
         public string TransmissionType { get; set; }
+        public string? Status { get; set; }
         public int? Mileage { get; set; }
         public string Description { get; set; } 
         public int DealershipId { get; set; }

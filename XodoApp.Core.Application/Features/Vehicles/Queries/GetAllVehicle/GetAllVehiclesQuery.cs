@@ -30,7 +30,7 @@ namespace XodoApp.Core.Application.Features.Vehicles.Queries.GetAllVehicle
 
             private async Task<List<VehicleDto>> GetAllViewModel()
             {
-                var vehicleList = await _vehicleRepository.GetAllAsync();
+                var vehicleList = await _vehicleRepository.GetAllWithImagesAsync();
 
 
                 var listViewModels = _mapper.Map<List<VehicleDto>>(vehicleList);

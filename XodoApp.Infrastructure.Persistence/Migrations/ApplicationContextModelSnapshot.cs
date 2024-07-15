@@ -124,6 +124,9 @@ namespace XodoApp.Infrastructure.Persistence.Migrations
                     b.Property<decimal?>("Price")
                         .HasColumnType("decimal(18, 2)");
 
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("TransmissionType")
                         .IsRequired()
                         .HasMaxLength(12)
@@ -171,6 +174,10 @@ namespace XodoApp.Infrastructure.Persistence.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("LastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PublicId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("VehicleId")
