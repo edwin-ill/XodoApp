@@ -68,6 +68,7 @@ namespace XodoApp.WebApi.Controllers.v1
             return Created(uri, result.Data);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPatch("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(VehiclePatchDto))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

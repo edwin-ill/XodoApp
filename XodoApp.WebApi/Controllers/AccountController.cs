@@ -26,7 +26,16 @@ namespace XodoApp.WebApi.Controllers
             Description = "Autentica al usuario en el sistema y retorna un JWT")]
         public async Task<IActionResult> AuthenticateAsync([FromBody] AuthenticationRequest request)
         {
-            return Ok(await _accountService.AuthenticateAsync(request));
+            var response = await _accountService.AuthenticateAsync(request);
+
+            if (!response.HasError)
+            {
+                return Ok(response);
+            }
+            else
+            {
+                return Unauthorized(new { message = response.Error });
+            }
         }
 
         [Authorize(Roles = "Admin")]

@@ -19,7 +19,7 @@ builder.Services.AddCors(options =>
                     .WithMethods("POST", "DELETE", "GET", "PATCH")
                     .AllowAnyHeader();
         });
-});  
+});
 
 builder.Services.AddControllers(options =>
 {
@@ -28,21 +28,18 @@ builder.Services.AddControllers(options =>
 {
     options.SuppressInferBindingSourcesForParameters = true;
     options.SuppressMapClientErrors = true;
-
-
 });
 
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
-    options.JsonSerializerOptions.WriteIndented = true;   
+    options.JsonSerializerOptions.WriteIndented = true;
 });
 
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
 {
     options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 });
-
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -66,19 +63,35 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseDeveloperExceptionPage();  // Use DeveloperExceptionPage in development
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+    });
 }
-app.UseAuthentication();
+else
+{
+    app.UseExceptionHandler("/Home/Error");  // Use custom error handler in production
+    app.UseHsts();
+}
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
 app.UseRouting();
-app.UseAuthorization();
+
 app.UseCors("MyPolicy");
+
+app.UseAuthentication();
+app.UseAuthorization();
+
 app.UseSwaggerExtension();
 app.UseHealthChecks("/health");
+
 app.UseSession();
-app.UseErrorHandlingMiddleware();
+
+app.UseErrorHandlingMiddleware();  // Custom error handling middleware
 
 app.UseEndpoints(endpoints =>
 {
