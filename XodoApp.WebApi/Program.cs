@@ -1,10 +1,13 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Serialization;
 using System.Text.Json.Serialization;
 using XodoApp.Core.Application;
 using XodoApp.Extensions;
 using XodoApp.Infrastructure.Identity;
+using XodoApp.Infrastructure.Identity.Entities;
 using XodoApp.Infrastructure.Identity.Mappings;
+using XodoApp.Infrastructure.Identity.Seeds;
 using XodoApp.Infrastructure.Persistence;
 using XodoApp.Infrastructure.Shared;
 
@@ -60,10 +63,29 @@ builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    try
+    {
+        var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+        var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+
+        await DefaultRoles.SeedAsync(userManager, roleManager);
+        await DefaultAdminUser.SeedAsync(userManager, roleManager);
+        await DefaultClientUser.SeedAsync(userManager, roleManager);
+    }
+    catch (Exception ex)
+    {
+
+    }
+}
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseDeveloperExceptionPage();  // Use DeveloperExceptionPage in development
+    app.UseDeveloperExceptionPage(); 
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
@@ -72,7 +94,7 @@ if (app.Environment.IsDevelopment())
 }
 else
 {
-    app.UseExceptionHandler("/Home/Error");  // Use custom error handler in production
+    app.UseExceptionHandler("/Home/Error");  
     app.UseHsts();
 }
 
@@ -91,7 +113,7 @@ app.UseHealthChecks("/health");
 
 app.UseSession();
 
-app.UseErrorHandlingMiddleware();  // Custom error handling middleware
+app.UseErrorHandlingMiddleware(); 
 
 app.UseEndpoints(endpoints =>
 {

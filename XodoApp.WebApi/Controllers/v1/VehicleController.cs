@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -10,8 +9,6 @@ using XodoApp.Core.Application.Features.Vehicles.Commands.DeleteVehicleById;
 using XodoApp.Core.Application.Features.Vehicles.Commands.UpdateVehicle;
 using XodoApp.Core.Application.Features.Vehicles.Queries.GetAllVehicle;
 using XodoApp.Core.Application.Features.Vehicles.Queries.GetVehicleById;
-using XodoApp.Core.Application.Features.Vehicles.Queries.GetVehicleByVin;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace XodoApp.WebApi.Controllers.v1
 {

@@ -1,14 +1,8 @@
 ﻿using AutoMapper;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using XodoApp.Core.Application.Dtos.Dealership;
 using XodoApp.Core.Application.Exceptions;
-using XodoApp.Core.Application.Features.Dealerships.Queries.GetAllDealership;
 using XodoApp.Core.Application.Interfaces.Repositories;
 using XodoApp.Core.Application.Wrappers;
 

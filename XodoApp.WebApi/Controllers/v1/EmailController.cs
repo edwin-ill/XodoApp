@@ -36,15 +36,15 @@ namespace XodoApp.WebApi.Controllers.v1
             
             var formattedEmail = new EmailRequest()
             {
-                Subject = command.Subject,
-                To = command.To,
+                Subject = "New client inquiry",
+                To = "tamoaqui5@gmail.com",
                 Body = $@"
                     <!DOCTYPE html>
                     <html lang='en'>
                     <head>
                         <meta charset=""UTF-8"">
                         <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
-                        <title>New Client Inquiry</title>
+                        <title>Consulta de nuevo cliente</title>
                         <style>
                             body {{
                                 font-family: Arial, sans-serif;
@@ -76,18 +76,19 @@ namespace XodoApp.WebApi.Controllers.v1
                     </head>
                     <body>
                         <div class=""header"">
-                            <h1>New Client Inquiry</h1>
+                            <h1>Consulta de nuevo cliente</h1>
                         </div>
                         <div class=""content"">
-                            <p>A potential client has submitted an inquiry through the ""Xodo AutoImport"" form. Please review the details below and respond promptly.</p>
-                            <h2>Client Information:</h2>
-                            <p><strong>Name:</strong> {command.SenderName}</p>
+                            <p>Un cliente potencial ha enviado una consulta a través del formulario de contacto. Revise los detalles a continuación y responda con prontitud.</p>
+                            <h2>Información del cliente:</h2>
+                            <p><strong>Nombre:</strong> {command.SenderName}</p>
                             <p><strong>Email:</strong> {command.SenderEmail}</p>
                             <h2>Message:</h2>
+                            <p><strong>Auto:</strong> {command.Car}</p>
                             <p>{command.Message}</p>
                         </div>
                         <div class=""footer"">
-                            <p>This is an automated message from the Xodo App contact system. Please do not reply to this email.</p>
+                            <p>Este es un mensaje automatizado del sistema de contacto de la aplicación Xodo App Import. Por favor no responder a este email.</p>
                         </div>
                     </body>
                     </html>",

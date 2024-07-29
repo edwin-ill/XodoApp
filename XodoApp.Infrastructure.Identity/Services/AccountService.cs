@@ -173,9 +173,11 @@ namespace XodoApp.Infrastructure.Identity.Services
             };
 
             var result = await _userManager.CreateAsync(user, request.Password);
+            user.EmailConfirmed = true;
             if (result.Succeeded)
             {
                 await _userManager.AddToRoleAsync(user, Roles.Admin.ToString());
+                response.UserId = user.Id;
             }
             else
             {
