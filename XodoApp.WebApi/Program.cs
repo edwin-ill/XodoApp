@@ -1,17 +1,24 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Serialization;
 using System.Text.Json.Serialization;
 using XodoApp.Core.Application;
 using XodoApp.Extensions;
 using XodoApp.Infrastructure.Identity;
+using XodoApp.Infrastructure.Identity.Contexts;
 using XodoApp.Infrastructure.Identity.Entities;
 using XodoApp.Infrastructure.Identity.Mappings;
 using XodoApp.Infrastructure.Identity.Seeds;
 using XodoApp.Infrastructure.Persistence;
+using XodoApp.Infrastructure.Persistence.Contexts;
 using XodoApp.Infrastructure.Shared;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Configuration
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+    .AddEnvironmentVariables();
 
 builder.Services.AddCors(options =>
 {
@@ -44,6 +51,7 @@ builder.Services.AddControllers().AddNewtonsoftJson(options =>
     options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 });
 
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -63,6 +71,9 @@ builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 var app = builder.Build();
 
+
+
+
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
@@ -75,6 +86,11 @@ using (var scope = app.Services.CreateScope())
         await DefaultRoles.SeedAsync(userManager, roleManager);
         await DefaultAdminUser.SeedAsync(userManager, roleManager);
         await DefaultClientUser.SeedAsync(userManager, roleManager);
+
+        var applicationContext = services.GetRequiredService<ApplicationContext>();
+        await applicationContext.Database.MigrateAsync();
+        var identityContext = services.GetRequiredService<IdentityContext>();
+        await identityContext.Database.MigrateAsync();
     }
     catch (Exception ex)
     {

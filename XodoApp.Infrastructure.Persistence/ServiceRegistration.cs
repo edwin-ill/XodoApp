@@ -18,6 +18,7 @@ namespace XodoApp.Infrastructure.Persistence
             }
             else
             {
+                var connectionstring = configuration.GetConnectionString("DefaultConnection");
                 services.AddDbContext<ApplicationContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
                 m => m.MigrationsAssembly(typeof(ApplicationContext).Assembly.FullName)));

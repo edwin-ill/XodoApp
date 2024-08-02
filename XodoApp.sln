@@ -27,7 +27,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XodoApp.Infrastructure.Pers
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApi", "WebApi", "{6B91CA9B-FE57-48D8-A0E8-5A867F97E5D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XodoApp.WebApi", "XodoApp.WebApi\XodoApp.WebApi.csproj", "{B68DEDD2-8D72-4FA2-B603-633D32774417}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XodoApp.WebApi", "XodoApp.WebApi\XodoApp.WebApi.csproj", "{B68DEDD2-8D72-4FA2-B603-633D32774417}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{9ACAF5ED-5B50-417E-8B62-D2808EC9D058}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{B68DEDD2-8D72-4FA2-B603-633D32774417}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B68DEDD2-8D72-4FA2-B603-633D32774417}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B68DEDD2-8D72-4FA2-B603-633D32774417}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9ACAF5ED-5B50-417E-8B62-D2808EC9D058}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9ACAF5ED-5B50-417E-8B62-D2808EC9D058}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9ACAF5ED-5B50-417E-8B62-D2808EC9D058}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9ACAF5ED-5B50-417E-8B62-D2808EC9D058}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
